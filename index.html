@@ -57,18 +57,19 @@
         </div>
     </main>
     <script>
-      const links = document.querySelectorAll('link[rel=stylesheet]');
+      // Find all CSS files
+      const links = document.querySelectorAll('link[rel="stylesheet"]');
+      
       links.forEach(link => {
-        link.href = link.href.split('?')[0] + '?v=' + new Date().getTime();
-      });
-
-      const scripts = document.querySelectorAll('script[src]');
-      scripts.forEach(script => {
-        script.src = script.src.split('?')[0] + '?v=' + new Date().getTime();
+        // Append a timestamp query string to force reload
+        const href = link.getAttribute('href').split('?')[0];
+        link.setAttribute('href', href + '?v=' + new Date().getTime());
       });
     </script>
+
 </body>
 </html>
+
 
 
 
