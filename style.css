@@ -176,7 +176,7 @@ main {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-left: 15rem;
+  padding-left: 5rem;
   padding-right: 5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -185,7 +185,8 @@ main {
 .details.fees{
   display: flex;
   flex-direction: column;
-  background-color: beige;
+  background-color: rgb(149, 254, 149);
+  padding-left: 0rem;
 }
 
 .details p {
@@ -195,7 +196,7 @@ main {
 }
 
 .details.fees p {
-  color: #d3945a;
+  color: rgb(9, 194, 9);
   font-size: x-large;
   line-height: 1.5;       /* makes text more readable */
 }
