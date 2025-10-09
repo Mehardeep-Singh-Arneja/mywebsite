@@ -56,8 +56,20 @@
         </p>
         </div>
     </main>
+    <script>
+      const links = document.querySelectorAll('link[rel=stylesheet]');
+      links.forEach(link => {
+        link.href = link.href.split('?')[0] + '?v=' + new Date().getTime();
+      });
+
+      const scripts = document.querySelectorAll('script[src]');
+      scripts.forEach(script => {
+        script.src = script.src.split('?')[0] + '?v=' + new Date().getTime();
+      });
+    </script>
 </body>
 </html>
+
 
 
 
