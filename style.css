@@ -216,7 +216,7 @@ main {
     width: 12rem;
     padding: 0rem, 1rem;
     height: 3rem;
-    background-color: rgba(255, 0, 225, 0.4);
+    background-color: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(1px);
     top: 14%;
     display: flex;
