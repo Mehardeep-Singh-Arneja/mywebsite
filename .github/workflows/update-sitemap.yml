@@ -1,0 +1,57 @@
+name: Auto Update Sitemap
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch if different
+
+jobs:
+  update-sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate sitemap.xml
+        run: |
+          python3 <<EOF
+import os
+from datetime import datetime
+
+BASE_URL = "https://mehardeep-singh-arneja.github.io/mywebsite/"
+sitemap = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+'''
+
+for root, dirs, files in os.walk("."):
+    for file in files:
+        if file.endswith(".html"):
+            path = os.path.relpath(os.path.join(root, file), ".").replace("\\\\", "/")
+            if path == "404.html":
+                continue
+            url = BASE_URL + path if path != "index.html" else BASE_URL
+            sitemap += f"  <url>\\n    <loc>{url}</loc>\\n    <lastmod>{datetime.utcnow().date()}</lastmod>\\n    <priority>0.8</priority>\\n  </url>\\n"
+
+sitemap += "</urlset>\\n"
+
+with open("sitemap.xml", "w", encoding="utf-8") as f:
+    f.write(sitemap)
+EOF
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update sitemap.xml"
+            git push
+          fi
